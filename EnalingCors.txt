@@ -1,0 +1,36 @@
+1st ->Startup.cs 
+//======For Implementing Default Cors  
+in ConfigureServices write
+
+	     services.AddCors(option => option.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()));
+in Configure 
+		app.UseCors();
+
+//=========2nd My Origin ==================
+in ConfigureServices write 
+		services.AddCors(option => option.AddDefaultPolicy(
+            builder => builder.WithOrigins("http://localhost:4200")));  //Dont Use Forwar slash at last
+in Configure 
+		app.UseCors();
+//=============== With Custom Policy=========
+ConfigureServices
+           
+ services.AddCors(options =>
+            {
+                (options.AddPolicy("myPolicy", options => options.AllowAnyOrigin());
+            }); 
+in Configure
+		app.UseCors("myPolicy");
+		//=====OR
+app.UseCors();
+ app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers().RequireCors("myPolicy");
+            });
+//=====Yeh Sab Controllers k Liye Cors Enable Krdy ga... 
+agr hmny Controller k liye cors Enable krni hen to 
+[EnableCors("mypolicy")]
+sy kr skty hen 
+or koi method disable krna ho usky liye 
+[DisableCors]

@@ -1,0 +1,10 @@
+angular snippets
+angular files 
+angular language service
+auto rename
+bracket pair colorizer
+debuger for chrome
+material icon theme
+prettier code- formatter
+TsLint
+Angular2 switcher
