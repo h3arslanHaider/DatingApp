@@ -1,4 +1,5 @@
 ﻿using DatingApp.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -24,6 +26,21 @@ namespace DatingApp.API.Controllers
         {
             var users = await _dbContex.Users.ToListAsync();
             return Ok(users);
+        }
+        [Route("mlist")]
+        [HttpGet]
+
+        public List<string> mlist()
+        {
+            List<string> list = new List<string>();
+            list.Add("Arslan");
+            list.Add("Usman");
+            list.Add("Abdul Rehman");
+            list.Add("Aliyaan");
+            list.Add("Subhaan");
+
+            return list;
+
         }
 
         [HttpGet("{id}")]
@@ -53,7 +70,7 @@ namespace DatingApp.API.Controllers
             var _user = await _dbContex.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
             if(user != null)
             {
-                _user.Name = user.Name;
+                _user.UserName = user.UserName;
             }
             int row = await _dbContex.SaveChangesAsync();
             if(row  > 0)
